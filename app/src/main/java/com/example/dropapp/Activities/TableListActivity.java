@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dropapp.Adapters.TableListAdapter;
@@ -29,6 +31,14 @@ public class TableListActivity extends BaseActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        this.getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(R.layout.action_bar_table_list);
+        //getSupportActionBar().setElevation(0);
+        View view = getSupportActionBar().getCustomView();
+        TextView titleTextView = findViewById(R.id.tv_title);
+        titleTextView.setText(R.string.title_activity_table_list);
+
         // Adapter
 
         ArrayAdapter<Table> adapter = new TableListAdapter(TableListActivity.this, R.layout.item_table_list, getMyApp().getTables());
@@ -41,7 +51,7 @@ public class TableListActivity extends BaseActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Això encara no fa res, chill", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });

@@ -8,6 +8,7 @@
     <dimen name="card_padding_horizontal">16dp</dimen>
     <dimen name="card_padding_vertical">8dp</dimen>
     <dimen name="card_margin_vertical">8dp</dimen>
+    <dimen name="action_bar_margin_horizontal">16dp</dimen>
 
     <!-- Text -->
     <dimen name="text_xs">12dp</dimen>
