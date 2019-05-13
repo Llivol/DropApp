@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">DropApp</string>
+
+
+    <!-- Català -->
+    <string name="title_activity_table_list">Taules</string>
+    <string name="title_activity_order_list">Comandes</string>
 </resources>
