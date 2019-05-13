@@ -5,4 +5,9 @@
     <!-- Català -->
     <string name="title_activity_table_list">Taules</string>
     <string name="title_activity_order_list">Comandes</string>
+
+    <!-- Placeholders -->
+    <string name="title_card_table_list">Taula 1</string>
+    <string name="points_card_table_list">700 punts</string>
+    <string name="status_card_table_list">Vol realitzar comanda</string>
 </resources>

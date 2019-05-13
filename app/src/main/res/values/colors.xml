@@ -9,4 +9,5 @@
 
     <color name="colorAccent">#ff7d66</color>
     <color name="colorBackground">#8ab0e6</color>
+    <color name="colorWhite">#ffffff</color>
 </resources>

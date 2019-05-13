@@ -1,4 +1,19 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="fab_size">64dp</dimen>
+
+    <!-- Paddings -->
+    <dimen name="main_padding_horizontal">16dp</dimen>
+    <dimen name="main_padding_vertical">8dp</dimen>
+    <dimen name="card_padding_horizontal">16dp</dimen>
+    <dimen name="card_padding_vertical">8dp</dimen>
+    <dimen name="card_margin_vertical">8dp</dimen>
+
+    <!-- Text -->
+    <dimen name="text_xs">12dp</dimen>
+    <dimen name="text_s">14dp</dimen>
+    <dimen name="text_m">16dp</dimen>
+    <dimen name="text_l">20dp</dimen>
+    <dimen name="text_xl">24dp</dimen>
+    <dimen name="text_xxl">32dp</dimen>
 </resources>
