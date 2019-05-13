@@ -19,6 +19,9 @@ public class TableListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table_list);
 
+        if (getMyApp().isFirstTime()) firstLaunch();
+        else overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -33,7 +36,7 @@ public class TableListActivity extends BaseActivity {
 
         findViewById(R.id.bg_table_list).setOnTouchListener(new OnSwipeTouchListener(TableListActivity.this) {
             public void onSwipeTop() {
-                Toast.makeText(TableListActivity.this, "Refresh", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TableListActivity.this, "Nothing to do here", Toast.LENGTH_SHORT).show();
             }
             public void onSwipeRight() {
                 Toast.makeText(TableListActivity.this, "Nothing to do here", Toast.LENGTH_SHORT).show();
@@ -44,11 +47,17 @@ public class TableListActivity extends BaseActivity {
                 startActivity(intent);
             }
             public void onSwipeBottom() {
-                Toast.makeText(TableListActivity.this, "Nothing to do here", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TableListActivity.this, "Refresh", Toast.LENGTH_SHORT).show();
             }
 
         });
 
+    }
+
+    private void firstLaunch() {
+
+        getMyApp().setFirstTime(false);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
 }

@@ -1,7 +1,6 @@
 package com.example.dropapp.Activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -17,20 +16,23 @@ public class OrderListActivity extends BaseActivity {
 
         setTitle(R.string.title_activity_order_list);
 
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
         findViewById(R.id.bg_order_list).setOnTouchListener(new OnSwipeTouchListener(OrderListActivity.this) {
             public void onSwipeTop() {
-                Toast.makeText(OrderListActivity.this, "Refresh", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OrderListActivity.this, "Nothing to do here", Toast.LENGTH_SHORT).show();
             }
             public void onSwipeRight() {
                 Intent intent = new Intent(OrderListActivity.this, TableListActivity.class);
                 finish();
                 startActivity(intent);
+
             }
             public void onSwipeLeft() {
                 Toast.makeText(OrderListActivity.this, "Nothing to do here", Toast.LENGTH_SHORT).show();
             }
             public void onSwipeBottom() {
-                Toast.makeText(OrderListActivity.this, "Nothing to do here", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OrderListActivity.this, "Refresh", Toast.LENGTH_SHORT).show();
             }
 
         });
