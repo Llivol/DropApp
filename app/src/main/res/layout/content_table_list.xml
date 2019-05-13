@@ -30,7 +30,7 @@
             android:layout_height="64dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/btn_rounded"
+            android:background="@drawable/btn_rounded_secondary"
             android:shadowRadius="100"
             android:src="@drawable/ic_right_icon_white"/-->
 

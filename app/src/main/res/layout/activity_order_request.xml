@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.OrderRequestActivity">
+
+    <RelativeLayout
+        android:id="@+id/bg_order_request"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="@dimen/main_padding_horizontal"
+        android:paddingVertical="@dimen/main_padding_vertical"
+        android:background="@color/colorBackground">
+
+        <Button
+            android:id="@+id/btn_score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/extra_m"
+            android:text="@string/points_card_table_list"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/text_xxl"
+            android:shadowRadius="500"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:background="@drawable/btn_rounded_white"
+            />
+
+        <!--LinearLayout
+            android:id="@+id/ll_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_score"
+            android:weightSum="8">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_rounded_secondary"
+                android:layout_weight="1"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/info_drop_item"
+                android:textSize="@dimen/text_s"
+                android:textAlignment="center"
+                android:layout_weight="3"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_rounded_primary"
+                android:layout_weight="1"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/info_normal_item"
+                android:textSize="@dimen/text_s"
+                android:textAlignment="center"
+                android:layout_weight="3"
+                />
+
+        </LinearLayout-->
+
+        <ListView
+            android:id="@+id/lv_request"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/btn_score"
+            android:layout_above="@id/ll_request"
+            android:divider="@color/colorAccent"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            />
+
+        <LinearLayout
+            android:id="@+id/ll_request"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <Button
+                android:id="@+id/btn_reset"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:background="@drawable/btn_rounded_primary"
+                android:text="@string/btn_reset_request"
+                android:textSize="@dimen/extra_m"
+                android:textColor="@color/colorWhite" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_weight="2">
+
+            </View>
+
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/btn_rounded_secondary"
+                android:text="@string/btn_submit_request"
+                android:textSize="@dimen/extra_m"
+                android:textStyle="bold"
+                android:textColor="@color/colorWhite" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

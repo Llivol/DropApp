@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_drop_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.OrderListActivity"></activity>
+        <activity android:name=".Activities.OrderRequestActivity"></activity>
+        <activity android:name=".Activities.OrderListActivity" />
         <activity
             android:name=".Activities.TableListActivity"
             android:label="@string/title_activity_table_list"

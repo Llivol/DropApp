@@ -38,7 +38,7 @@
                 />
 
             <TextView
-                android:id="@+id/tv_score"
+                android:id="@+id/btn_score"
                 android:layout_below="@+id/tv_table"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
 
             <TextView
                 android:id="@+id/tv_status"
-                android:layout_below="@+id/tv_score"
+                android:layout_below="@+id/btn_score"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"

@@ -5,9 +5,18 @@
     <!-- Català -->
     <string name="title_activity_table_list">Taules</string>
     <string name="title_activity_order_list">Comandes</string>
+    <string name="title_activity_order_request">Envia comanda</string>
+    <string name="btn_reset_request">Buida</string>
+    <string name="btn_submit_request">Envia</string>
+    <string name="info_drop_item">Producte Drop</string>
+    <string name="info_normal_item">Producte sense descompte</string>
+    <string name="ok">D\'acord</string>
 
     <!-- Placeholders -->
     <string name="title_card_table_list">Taula 1</string>
     <string name="points_card_table_list">700 punts</string>
     <string name="status_card_table_list">Vol realitzar comanda</string>
+    <string name="name_item_order_request">Cervesa</string>
+    <string name="counter_item_order_request">88</string>
+    
 </resources>

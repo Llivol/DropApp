@@ -9,21 +9,23 @@
 
     <TextView
         android:id="@+id/tv_title"
-        android:layout_toLeftOf="@id/btn_swipe_right"
+        android:layout_toRightOf="@id/btn_forward"
         android:layout_width = "match_parent"
         android:layout_height = "wrap_content"
         android:layout_centerVertical="true"
         android:text = "Custom Action Bar"
+        android:textAlignment="viewEnd"
         android:textSize = "@dimen/text_xl"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:gravity="end" />
 
     <ImageButton
-        android:id="@+id/btn_swipe_right"
-        android:layout_marginLeft="@dimen/action_bar_margin_horizontal"
-        android:layout_alignParentRight="true"
+        android:id="@+id/btn_back"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="@dimen/action_bar_margin_horizontal"
         android:layout_width="@dimen/fab_size"
         android:layout_height="match_parent"
-        android:background="@drawable/btn_rounded"
+        android:background="@drawable/btn_rounded_secondary"
         android:shadowRadius="100"
-        android:src="@drawable/ic_right_icon_white"/>
+        android:src="@drawable/ic_left_icon_white"/>
 </RelativeLayout>

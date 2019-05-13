@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,13 +31,7 @@ public class TableListActivity extends BaseActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        this.getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setDisplayShowCustomEnabled(true);
-        getSupportActionBar().setCustomView(R.layout.action_bar_table_list);
-        //getSupportActionBar().setElevation(0);
-        View view = getSupportActionBar().getCustomView();
-        TextView titleTextView = findViewById(R.id.tv_title);
-        titleTextView.setText(R.string.title_activity_table_list);
+        setCustomActionBar(false, R.string.title_activity_table_list);
 
         // Adapter
 
@@ -56,7 +50,7 @@ public class TableListActivity extends BaseActivity {
             }
         });
 
-        findViewById(R.id.btn_swipe_right).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn_forward).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TableListActivity.this, OrderListActivity.class);
@@ -81,6 +75,23 @@ public class TableListActivity extends BaseActivity {
                 if (hasEndedScrolling(true))  Toast.makeText(TableListActivity.this, "Refresh ", Toast.LENGTH_SHORT).show();;
             }
 
+        });
+
+        list_view.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                // Aqui podem afegir activities per a cada espai de la llista
+                Intent intent = new Intent();
+
+                intent.putExtra( "Taula", "" + getMyApp().getTables().get(position).getId());
+                intent.putExtra( "Score", getMyApp().getTables().get(position).getScore() + "" );
+                intent.putExtra( "Status", getMyApp().getTables().get(position).getStatus() );
+
+                intent.setClass( TableListActivity.this, OrderRequestActivity.class );
+                startActivity( intent );
+            }
         });
 
     }

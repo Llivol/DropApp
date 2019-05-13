@@ -3,25 +3,25 @@
     <item android:state_pressed="true" >
         <shape android:shape="rectangle"  >
             <corners android:radius="8dp" />
-            <gradient android:angle="-90" android:startColor="@color/colorSecondayDark" android:endColor="@color/colorSecondayDark"  />
+            <gradient android:angle="-90" android:startColor="@color/colorPrimaryDark" android:endColor="@color/colorPrimaryDark"  />
         </shape>
     </item>
     <item android:state_enabled="false" >
         <shape android:shape="rectangle"  >
             <corners android:radius="8dp" />
-            <gradient android:angle="-90" android:startColor="@color/colorSecondayLight" android:endColor="@color/colorSecondayLight"  />
+            <gradient android:angle="-90" android:startColor="@color/colorPrimaryLight" android:endColor="@color/colorPrimaryLight"  />
         </shape>
     </item>
     <item android:state_focused="true">
         <shape android:shape="rectangle"  >
             <corners android:radius="8dp" />
-            <solid android:color="@color/colorSecondary"/>
+            <solid android:color="@color/colorPrimary"/>
         </shape>
     </item>
     <item >
         <shape android:shape="rectangle"  >
             <corners android:radius="8dp" />
-            <gradient android:angle="-90" android:startColor="@color/colorAccent" android:endColor="@color/colorAccent" />
+            <gradient android:angle="-90" android:startColor="@color/colorPrimary" android:endColor="@color/colorPrimary" />
         </shape>
     </item>
 

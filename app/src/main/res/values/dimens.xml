@@ -10,6 +10,10 @@
     <dimen name="card_margin_vertical">8dp</dimen>
     <dimen name="action_bar_margin_horizontal">16dp</dimen>
 
+    <dimen name="extra_s">8dp</dimen>
+    <dimen name="extra_m">16dp</dimen>
+    <dimen name="extra_l">32dp</dimen>
+
     <!-- Text -->
     <dimen name="text_xs">12dp</dimen>
     <dimen name="text_s">14dp</dimen>
@@ -17,4 +21,6 @@
     <dimen name="text_l">20dp</dimen>
     <dimen name="text_xl">24dp</dimen>
     <dimen name="text_xxl">32dp</dimen>
+    <dimen name="text_xxxl">48dp</dimen>
+    <dimen name="text_xxxxl">64dp</dimen>
 </resources>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clipToPadding="false"
+    android:paddingVertical="@dimen/card_margin_vertical"
+    android:paddingHorizontal="@dimen/card_padding_horizontal">
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@id/btn_add_drop"
+        android:textSize="@dimen/text_xl"
+        android:layout_centerVertical="true"
+        android:text="@string/name_item_order_request"
+        android:textColor="@color/colorPrimaryDark"
+        />
+
+    <ImageButton
+        android:id="@+id/btn_add_drop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:paddingHorizontal="@dimen/extra_s"
+        android:paddingVertical="@dimen/extra_s"
+        android:layout_toLeftOf="@id/btn_add"
+        android:background="@drawable/btn_rounded_secondary"
+        android:src="@drawable/ic_add_icon_white"
+        android:layout_marginLeft="@dimen/extra_s"
+        android:onClick="addItemDrop"
+        />
+
+    <ImageButton
+        android:id="@+id/btn_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:paddingHorizontal="@dimen/extra_s"
+        android:paddingVertical="@dimen/extra_s"
+        android:layout_toLeftOf="@id/tv_counter"
+        android:background="@drawable/btn_rounded_primary"
+        android:src="@drawable/ic_add_icon_white"
+        android:layout_marginLeft="@dimen/extra_s"
+        android:onClick="addItem"
+        />
+
+    <TextView
+        android:id="@+id/tv_counter"
+        android:layout_toLeftOf="@id/btn_substract"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/counter_item_order_request"
+        android:textSize="@dimen/text_xl"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/extra_s"
+        />
+
+    <ImageButton
+        android:id="@+id/btn_substract"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:paddingHorizontal="@dimen/extra_s"
+        android:paddingVertical="@dimen/extra_s"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/btn_rounded_primary"
+        android:src="@drawable/ic_add_icon_white"
+        android:layout_marginLeft="@dimen/extra_s"
+        android:onClick="substractItem"
+        />
+
+</RelativeLayout>
+
+
+

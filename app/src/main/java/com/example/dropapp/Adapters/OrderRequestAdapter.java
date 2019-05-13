@@ -3,37 +3,40 @@ package com.example.dropapp.Adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.dropapp.Models.Table;
+import com.example.dropapp.Models.Item;
 import com.example.dropapp.R;
 
 import java.util.List;
 
-public class TableListAdapter extends ArrayAdapter<Table> {
+public class OrderRequestAdapter extends ArrayAdapter<Item> {
 
     Context context;
     int layoutResourceId;
-    List<Table> tables = null;
+    List<Item> items = null;
 
-    public TableListAdapter(Context context, int resource, List<Table> tables)
+    public OrderRequestAdapter(Context context, int resource, List<Item> objects)
     {
-        super(context, resource, tables);
+        super(context, resource, objects);
 
         this.layoutResourceId = resource;
         this.context = context;
-        this.tables = tables;
+        this.items = objects;
     }
 
+    /*
+        Classe temporal que permet guardar la informació dels items
+     */
     static class DataHolder
     {
-        TextView tvTable;
-        TextView tvScore;
-        TextView tvStatus;
+        TextView tvName;
+        TextView tvCounter;
     }
 
     @NonNull
@@ -50,9 +53,8 @@ public class TableListAdapter extends ArrayAdapter<Table> {
             convertView = inflater.inflate(layoutResourceId, parent, false);
 
             holder = new DataHolder();
-            holder.tvTable = (TextView)convertView.findViewById(R.id.tv_table);
-            holder.tvScore = (TextView)convertView.findViewById(R.id.btn_score);
-            holder.tvStatus = (TextView)convertView.findViewById(R.id.tv_status);
+            holder.tvName = (TextView)convertView.findViewById(R.id.tv_name);
+            holder.tvCounter = (TextView)convertView.findViewById(R.id.tv_counter);
 
             convertView.setTag(holder);
         }
@@ -60,11 +62,13 @@ public class TableListAdapter extends ArrayAdapter<Table> {
         {
             holder = (DataHolder)convertView.getTag();
         }
-        Table tableItem = tables.get(position);
+        Item dataItem = items.get(position);
 
-        holder.tvTable.setText("Taula " + tableItem.getId());
-        holder.tvScore.setText(tableItem.getScore() + " punts");
-        holder.tvStatus.setText(tableItem.getStatus());
+        Log.d( "table_information", dataItem.getItem() );
+
+        //holder.tvName.setText(Utils.toTitleCase(dataItem.getItem()));
+        holder.tvName.setText(dataItem.getItem());
+        holder.tvCounter.setText(dataItem.getAcummulatedAmount() + "");
 
         return convertView;
     }

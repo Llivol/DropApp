@@ -21,19 +21,13 @@ public class OrderListActivity extends BaseActivity {
 
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
-        this.getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setDisplayShowCustomEnabled(true);
-        getSupportActionBar().setCustomView(R.layout.action_bar_order_list);
-        //getSupportActionBar().setElevation(0);
-        View view = getSupportActionBar().getCustomView();
-        TextView titleTextView = findViewById(R.id.tv_title);
-        titleTextView.setText(R.string.title_activity_order_list);
+        setCustomActionBar(true, R.string.title_activity_order_list);
 
         // Adapters
 
         // Listeners
 
-        findViewById(R.id.btn_swipe_left).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(OrderListActivity.this, TableListActivity.class);
