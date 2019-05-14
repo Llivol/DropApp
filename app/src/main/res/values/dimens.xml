@@ -13,6 +13,10 @@
     <dimen name="extra_s">8dp</dimen>
     <dimen name="extra_m">16dp</dimen>
     <dimen name="extra_l">32dp</dimen>
+    <dimen name="extra_xl">64dp</dimen>
+    <dimen name="extra_xxl">128dp</dimen>
+    <dimen name="extra_xxxl">256dp</dimen>
+
 
     <!-- Text -->
     <dimen name="text_xs">12dp</dimen>

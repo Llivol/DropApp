@@ -3,16 +3,14 @@ package com.example.dropapp.Activities;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.RemoteViews;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dropapp.Adapters.OrderRequestAdapter;
 import com.example.dropapp.Models.Item;
@@ -24,7 +22,7 @@ import java.util.ArrayList;
 public class OrderRequestActivity extends BaseActivity {
 
     Table currentTable;
-    ArrayList<Item> lData;
+    ArrayList<Item> items;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +41,11 @@ public class OrderRequestActivity extends BaseActivity {
         Button btn_score = findViewById(R.id.btn_score);
         btn_score.setText(currentTable.getScore() + " punts");
 
-        lData = getMyApp().getItems();
+        items = getMyApp().getItems();
 
         // Adapters
 
-        OrderRequestAdapter adapter = new OrderRequestAdapter( OrderRequestActivity.this, R.layout.item_order_request, lData );
+        OrderRequestAdapter adapter = new OrderRequestAdapter( OrderRequestActivity.this, R.layout.item_order_request, items);
 
         ListView list_view = this.findViewById(R.id.lv_request);
 
@@ -85,9 +83,18 @@ public class OrderRequestActivity extends BaseActivity {
 
     private void buidaComanda(View v) {
 
+        for (Item item :
+                items) {
+            item.setAmount(0);
+            item.setAmountD(0);
+        }
+
+        Toast.makeText(OrderRequestActivity.this, "Buida comanda no funciona", Toast.LENGTH_LONG);
+
+        updateCurrentTable();
     }
 
-    public void enviaComanda(View view) {
+    public void enviaComanda(final View view) {
 
         if ( currentTable.getScore() < 0 ) {
 
@@ -97,8 +104,10 @@ public class OrderRequestActivity extends BaseActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             // TODO Aqui pot fer un reset de la comanda
+                            buidaComanda(view);
                         }
                     })
+                    .setCancelable(false)
                     .show();
         }
 
@@ -111,6 +120,7 @@ public class OrderRequestActivity extends BaseActivity {
                         public void onClick(DialogInterface dialog, int which) {
                         }
                     })
+                    .setCancelable(false)
                     .show();
         }
 
@@ -126,6 +136,8 @@ public class OrderRequestActivity extends BaseActivity {
 
                             //postComanda(comandaData);
 
+                            buidaComanda(view);
+
                             Intent intent = new Intent();
                             intent.setClass( OrderRequestActivity.this, TableListActivity.class );
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -134,6 +146,7 @@ public class OrderRequestActivity extends BaseActivity {
                             finish();
                         }
                     })
+                    .setCancelable(false)
                     .show();
         }
     }
@@ -141,7 +154,7 @@ public class OrderRequestActivity extends BaseActivity {
     private boolean comandaIsEmpty() {
 
         for (Item aux :
-               lData) {
+                items) {
             if (aux.getAcummulatedAmount() > 0) return false;
         }
 
@@ -149,13 +162,13 @@ public class OrderRequestActivity extends BaseActivity {
     }
 
     /*
-      Retorna la posició d'un producte dins de lData
+      Retorna la posició d'un producte dins de items
    */
     private int getArrayPosition( String name )
     {
-        for ( Item item : lData )
+        for ( Item item : items)
         {
-            if ( item.getItem().equals( name ) ) return lData.indexOf(item);
+            if ( item.getItem().equals( name ) ) return items.indexOf(item);
         }
 
         return -1;
@@ -186,15 +199,15 @@ public class OrderRequestActivity extends BaseActivity {
         //int pos = getArrayPosition( name.toLowerCase() );
         int pos = getArrayPosition( name );
 
-        lData.get(pos).setAmountD( lData.get(pos).getAmountD() + 1 );
+        items.get(pos).setAmountD( items.get(pos).getAmountD() + 1 );
 
-        currentTable.setScore( currentTable.getScore() - lData.get(pos).getPointCost() );
+        currentTable.setScore( currentTable.getScore() - items.get(pos).getPointCost() );
 
         updateCurrentTable();
 
-        ((TextView) row.findViewById( R.id.tv_counter )).setText( "" +  lData.get(pos).getAcummulatedAmount() );
+        ((TextView) row.findViewById( R.id.tv_counter )).setText( "" +  items.get(pos).getAcummulatedAmount() );
 
-        //((TextView) row.getChildAt(3)).setText( "" +  lData.get(pos).getAcummulatedAmount() );
+        //((TextView) row.getChildAt(3)).setText( "" +  items.get(pos).getAcummulatedAmount() );
     }
 
     /*
@@ -209,9 +222,9 @@ public class OrderRequestActivity extends BaseActivity {
         //int pos = getArrayPosition( name.toLowerCase() );
         int pos = getArrayPosition( name );
 
-        lData.get(pos).setAmount( lData.get(pos).getAmount() + 1 );
+        items.get(pos).setAmount( items.get(pos).getAmount() + 1 );
 
-        ((TextView) row.getChildAt(3)).setText( "" +  lData.get(pos).getAcummulatedAmount() );
+        ((TextView) row.getChildAt(3)).setText( "" +  items.get(pos).getAcummulatedAmount() );
     }
 
     /*
@@ -227,11 +240,11 @@ public class OrderRequestActivity extends BaseActivity {
         //int pos = getArrayPosition( name.toLowerCase() );
         int pos = getArrayPosition( name );
 
-        if ( lData.get(pos).getAmountD() > 0 ) substractItemDrop(pos);
+        if ( items.get(pos).getAmountD() > 0 ) substractItemDrop(pos);
 
-        else if ( lData.get(pos).getAmount() > 0 ) lData.get(pos).setAmount( lData.get(pos).getAmount() - 1 );
+        else if ( items.get(pos).getAmount() > 0 ) items.get(pos).setAmount( items.get(pos).getAmount() - 1 );
 
-        ((TextView) row.getChildAt(3)).setText( "" +  lData.get(pos).getAcummulatedAmount() );
+        ((TextView) row.getChildAt(3)).setText( "" +  items.get(pos).getAcummulatedAmount() );
 
     }
 
@@ -240,9 +253,9 @@ public class OrderRequestActivity extends BaseActivity {
      */
     public void substractItemDrop(int pos ) {
 
-        lData.get(pos).setAmountD( lData.get(pos).getAmountD() - 1 );
+        items.get(pos).setAmountD( items.get(pos).getAmountD() - 1 );
 
-        currentTable.setScore( currentTable.getScore() + lData.get(pos).getPointCost() );
+        currentTable.setScore( currentTable.getScore() + items.get(pos).getPointCost() );
 
         updateCurrentTable();
     }
@@ -262,7 +275,7 @@ public class OrderRequestActivity extends BaseActivity {
 
         JsonNode details = mapper.createArrayNode();
         for (ItemJsonData aux :
-                lData) {
+                items) {
             if (aux.getAcummulatedAmount() > 0) {
 
                 JsonNode listNode = mapper.createObjectNode();
@@ -295,7 +308,7 @@ public class OrderRequestActivity extends BaseActivity {
         Long pointsSpent = 0L;
 
         for (Item aux :
-                lData) {
+                items) {
             pointsSpent = pointsSpent + (aux.getAmountD() * aux.getPointCost());
         }
 

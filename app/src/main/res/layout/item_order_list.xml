@@ -25,40 +25,27 @@
 
             <TextView
                 android:id="@+id/tv_table"
+                android:layout_toLeftOf="@id/btn_collapse"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/title_table"
-                android:textColor="@color/colorPrimaryDark"
-                android:textIsSelectable="false"
-                android:clickable="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:textSize="@dimen/text_l"
-                android:textStyle="italic"
-                />
-
-            <TextView
-                android:id="@+id/btn_score"
-                android:layout_below="@+id/tv_table"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/score"
                 android:textColor="@color/colorPrimary"
                 android:textIsSelectable="false"
                 android:clickable="false"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
-                android:textSize="@dimen/text_xxl"
+                android:textSize="@dimen/text_l"
                 android:textStyle="bold"
                 />
 
             <TextView
-                android:id="@+id/tv_status"
-                android:layout_below="@+id/btn_score"
+                android:id="@+id/tv_items"
+                android:layout_below="@+id/tv_table"
+                android:layout_toLeftOf="@id/btn_collapse"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:text="@string/status"
+                android:layout_marginLeft="@dimen/extra_m"
+                android:text="@string/list_items"
                 android:textColor="@color/colorPrimaryDark"
                 android:textIsSelectable="false"
                 android:clickable="false"
@@ -67,6 +54,41 @@
                 android:textSize="@dimen/text_m"
                 android:textStyle="italic"
                 />
+
+            <ListView
+                android:id="@+id/lv_items"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/extra_xxxl"
+                android:layout_below="@id/tv_items"
+                android:layout_toLeftOf="@id/btn_collapse"
+                android:visibility="visible"
+                ></ListView>
+
+            <Button
+                android:id="@+id/btn_notify"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lv_items"
+                android:background="@drawable/btn_rounded_secondary"
+                android:text="@string/btn_notify"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/text_m"
+                />
+
+            <ImageButton
+                android:id="@+id/btn_collapse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/extra_s"
+                android:paddingVertical="@dimen/extra_s"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/btn_rounded_primary"
+                android:src="@drawable/ic_add_icon_white"
+                android:layout_marginLeft="@dimen/extra_s"
+                android:layout_marginTop="@dimen/extra_m"
+                />
+
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>

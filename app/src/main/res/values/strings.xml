@@ -11,12 +11,16 @@
     <string name="info_drop_item">Producte Drop</string>
     <string name="info_normal_item">Producte sense descompte</string>
     <string name="ok">D\'acord</string>
+    <string name="btn_notify">Notifica taula</string>
 
     <!-- Placeholders -->
-    <string name="title_card_table_list">Taula 1</string>
-    <string name="points_card_table_list">700 punts</string>
-    <string name="status_card_table_list">Vol realitzar comanda</string>
-    <string name="name_item_order_request">Cervesa</string>
-    <string name="counter_item_order_request">88</string>
+    <string name="title_table">Taula 1</string>
+    <string name="score">700 punts</string>
+    <string name="status">Vol realitzar comanda</string>
+    <string name="name_item">Cervesa</string>
+    <string name="counter_item">88</string>
+    <string name="list_items">Cervesa x1, Cervesa Drop x2, Braves x1, Coca-Cola x2, Aigua x1</string>
+    <string name="price_item">88.88€/u.</string>
+    <string name="units_item">Unitats: 88</string>
     
 </resources>
