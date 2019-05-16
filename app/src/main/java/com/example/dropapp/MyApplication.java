@@ -48,11 +48,11 @@ public class MyApplication extends Application {
         ArrayList<Item> aux2 = new ArrayList<>();
         aux2.add(new Item("Sandwitch", 2, 0, 1.0f, 0.5f, 100));
         aux2.add(new Item("Aigua", 1, 0, 1.0f, 0.5f, 100));
-        orders.add(new Order(1, "100", aux2));
+        orders.add(new Order(2, "100", aux2));
 
         ArrayList<Item> aux3 = new ArrayList<>();
         aux3.add(new Item("Coca-Cola", 5, 0, 1.0f, 0.5f, 100));
-        orders.add(new Order(1, "100", aux3));
+        orders.add(new Order(3, "100", aux3));
 
         super.onCreate();
     }
@@ -69,5 +69,7 @@ public class MyApplication extends Application {
         return tables;
     }
 
-    public ArrayList<Item> getItems() {return items;}
+    public ArrayList<Item> getItems() { return items; }
+
+    public ArrayList<Order> getOrders() { return orders; }
 }

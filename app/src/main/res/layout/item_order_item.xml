@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/name_item"
-            android:textSize="@dimen/text_m"
+            android:textSize="@dimen/text_l"
             android:textColor="@color/colorPrimaryDark"
             />
 
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/tv_item_units"
             android:text="@string/price_item"
-            android:textSize="@dimen/text_m"
+            android:textSize="@dimen/text_l"
             android:textColor="@color/colorPrimaryDark"
             />
 
@@ -39,7 +39,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginLeft="@dimen/extra_m"
             android:text="@string/units_item"
-            android:textSize="@dimen/text_m"
+            android:textSize="@dimen/text_l"
             android:textColor="@color/colorPrimaryDark"
             />
     </RelativeLayout>

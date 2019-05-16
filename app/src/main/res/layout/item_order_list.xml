@@ -55,20 +55,22 @@
                 android:textStyle="italic"
                 />
 
-            <ListView
+            <com.example.dropapp.Layout.WrapContentListView
                 android:id="@+id/lv_items"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/extra_xxxl"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/tv_items"
                 android:layout_toLeftOf="@id/btn_collapse"
+                android:layout_marginTop="@dimen/extra_m"
                 android:visibility="visible"
-                ></ListView>
+                ></com.example.dropapp.Layout.WrapContentListView>
 
             <Button
                 android:id="@+id/btn_notify"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/lv_items"
+                android:layout_marginTop="@dimen/extra_m"
                 android:background="@drawable/btn_rounded_secondary"
                 android:text="@string/btn_notify"
                 android:textColor="@color/colorWhite"
@@ -84,9 +86,10 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:background="@drawable/btn_rounded_primary"
-                android:src="@drawable/ic_add_icon_white"
+                android:src="@drawable/ic_down_icon_white"
                 android:layout_marginLeft="@dimen/extra_s"
-                android:layout_marginTop="@dimen/extra_m"
+                android:layout_marginTop="@dimen/extra_s"
+                android:onClick="expandContent"
                 />
 
         </RelativeLayout>

@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">DropApp</string>
 
+    <!-- Format -->
+
+    <string name="format_item_list">%1$s (x%2$s)</string>
+    <string name="format_item_price">%1$.2f€/u.</string>
+    <string name="format_item_amount">%1$s u.</string>
 
     <!-- Català -->
     <string name="title_activity_table_list">Taules</string>
@@ -12,6 +17,8 @@
     <string name="info_normal_item">Producte sense descompte</string>
     <string name="ok">D\'acord</string>
     <string name="btn_notify">Notifica taula</string>
+
+    <string name="info_item_list_empty">No s\'ha demanat res</string>
 
     <!-- Placeholders -->
     <string name="title_table">Taula 1</string>
