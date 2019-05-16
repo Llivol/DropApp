@@ -1,10 +1,12 @@
 package com.example.dropapp.Activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
@@ -32,6 +34,8 @@ public class OrderListActivity extends BaseActivity {
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
         setCustomActionBar(true, R.string.title_activity_order_list);
+
+        // TODO: Aqui aniria el getOrders
 
         // Adapters
 
@@ -70,6 +74,92 @@ public class OrderListActivity extends BaseActivity {
         });
 
     }
+
+    public void notifyTable(View view) {
+
+        new AlertDialog.Builder(this)
+                .setMessage( "Es notificarà a la taula" )
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        Toast.makeText(OrderListActivity.this, "Notificar taula", Toast.LENGTH_SHORT).show();
+                        // TODO: postWarn
+                        //postWarn();
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Nosing
+                    }
+                })
+                .show();
+    }
+
+    /* postWarn de la versió antiga
+
+        private void postWarn() {
+        String routeUrl = Utils.defaultUrl + "warn";
+
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = routeUrl;
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("warn","Response is: "+ response);
+
+                        Intent intent = new Intent();
+                        intent.setClass( ComandaInformationActivity.this, ComandaListActivity.class );
+                        startActivity( intent );
+
+                        finish();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("warn", "Error: " + error.toString());
+                        Toast.makeText(ComandaInformationActivity.this,
+                                "Something went wrong",
+                                Toast.LENGTH_LONG);
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Content-Type", "application/json");
+                return params;
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+
+                String body = "{\"id\": \"" + currentTableId + "\" }";
+
+                try {
+
+                    return body == null ? null : body.getBytes( "utf-8" );
+
+                } catch (UnsupportedEncodingException uee) {
+                    VolleyLog.wtf( "Unsupported Encoding while trying to get the bytes" );
+                    return null;
+                }
+            }
+        };
+
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+
+    }
+
+
+     */
 
     public void expandContent(View view) {
 

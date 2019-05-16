@@ -33,6 +33,8 @@ public class TableListActivity extends BaseActivity {
 
         setCustomActionBar(false, R.string.title_activity_table_list);
 
+        // TODO: Aqui aniria el getTables
+
         // Adapter
 
         ArrayAdapter<Table> adapter = new TableListAdapter(TableListActivity.this, R.layout.item_table_list, getMyApp().getTables());
@@ -42,7 +44,7 @@ public class TableListActivity extends BaseActivity {
         // Listeners
 
         /* Això era una idea, pero al final res per falta de temps
-        
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -41,6 +41,8 @@ public class OrderRequestActivity extends BaseActivity {
         Button btn_score = findViewById(R.id.btn_score);
         btn_score.setText(currentTable.getScore() + " punts");
 
+        // TODO: Aqui aniria el getItems
+
         items = getMyApp().getItems();
 
         // Adapters
@@ -71,6 +73,8 @@ public class OrderRequestActivity extends BaseActivity {
             }
         });
 
+        /* Buida comanda no funciona
+
         Button btnClean = (Button) findViewById(R.id.btn_reset);
         btnClean.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,9 +83,12 @@ public class OrderRequestActivity extends BaseActivity {
             }
         });
 
-    }
+         */
 
-    private void buidaComanda(View v) {
+    }
+    /*
+
+        private void buidaComanda(View v) {
 
         for (Item item :
                 items) {
@@ -94,6 +101,8 @@ public class OrderRequestActivity extends BaseActivity {
         updateCurrentTable();
     }
 
+     */
+
     public void enviaComanda(final View view) {
 
         if ( currentTable.getScore() < 0 ) {
@@ -104,7 +113,7 @@ public class OrderRequestActivity extends BaseActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             // TODO Aqui pot fer un reset de la comanda
-                            buidaComanda(view);
+                            //buidaComanda(view);
                         }
                     })
                     .setCancelable(false)
@@ -136,7 +145,7 @@ public class OrderRequestActivity extends BaseActivity {
 
                             //postComanda(comandaData);
 
-                            buidaComanda(view);
+                            //buidaComanda(view);
 
                             Intent intent = new Intent();
                             intent.setClass( OrderRequestActivity.this, TableListActivity.class );

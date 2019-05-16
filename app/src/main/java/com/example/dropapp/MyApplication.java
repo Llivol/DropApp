@@ -65,6 +65,44 @@ public class MyApplication extends Application {
         isFirstTime = firstTime;
     }
 
+    // TODO: Aquests gets haurien de fer peticions al servidor
+
+    /* Aixi es com ho feiem a l'altra versió
+
+    StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+        @Override
+        public void onResponse(String response) {
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            try {
+
+                ArrayList<ClasseJson> llistaObjectesJson = objectMapper.readValue(
+                        response,
+                        objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, ClasseJson.class));
+
+                for (ClasseJson aux :
+                        llistaObjectesJson) {
+
+                    this.arrayListAOmplir.add( aux );
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }, new Response.ErrorListener() {
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        Log.d("error", "Error: " + error.toString());
+        }
+    });
+
+    // Add the request to the RequestQueue.
+    queue.add(stringRequest);
+
+     */
+
     public ArrayList<Table> getTables() {
         return tables;
     }

@@ -16,6 +16,7 @@
     <string name="info_drop_item">Producte Drop</string>
     <string name="info_normal_item">Producte sense descompte</string>
     <string name="ok">D\'acord</string>
+    <string name="cancel">Cancel·la</string>
     <string name="btn_notify">Notifica taula</string>
 
     <string name="info_item_list_empty">No s\'ha demanat res</string>

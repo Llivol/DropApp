@@ -75,6 +75,7 @@
                 android:text="@string/btn_notify"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/text_m"
+                android:onClick="notifyTable"
                 />
 
             <ImageButton

@@ -75,14 +75,25 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/btn_score"
-            android:layout_above="@id/ll_request"
+            android:layout_above="@id/btn_submit"
             android:divider="@color/colorAccent"
             android:clickable="false"
             android:focusable="false"
             android:focusableInTouchMode="false"
             />
 
-        <LinearLayout
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/btn_rounded_secondary"
+            android:text="@string/btn_submit_request"
+            android:textSize="@dimen/extra_m"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite" />
+
+        <!--LinearLayout
             android:id="@+id/ll_request"
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
@@ -118,7 +129,7 @@
                 android:textStyle="bold"
                 android:textColor="@color/colorWhite" />
 
-        </LinearLayout>
+        </LinearLayout-->
 
     </RelativeLayout>
 
