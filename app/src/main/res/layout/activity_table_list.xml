@@ -22,7 +22,7 @@
 
     <include layout="@layout/content_table_list" />
 
-    <android.support.design.widget.FloatingActionButton
+    <!--android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         app:fabCustomSize="@dimen/fab_size"
         android:layout_width="wrap_content"
@@ -30,6 +30,6 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@drawable/ic_add_icon_white"
-        tools:ignore="VectorDrawableCompat" />
+        tools:ignore="VectorDrawableCompat" /-->
 
 </android.support.design.widget.CoordinatorLayout>

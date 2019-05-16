@@ -41,6 +41,8 @@ public class TableListActivity extends BaseActivity {
 
         // Listeners
 
+        /* Això era una idea, pero al final res per falta de temps
+        
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +50,7 @@ public class TableListActivity extends BaseActivity {
                 Snackbar.make(view, "Això encara no fa res, chill", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
         findViewById(R.id.btn_forward).setOnClickListener(new View.OnClickListener() {
             @Override
