@@ -55,13 +55,10 @@ public class TableListActivity extends BaseActivity {
 
         setCustomActionBar(false, R.string.title_activity_table_list);
 
+        lData = new ArrayList<TableData>();
         // TODO: Aqui aniria el getTables
         getTaules();
-        // Adapter
 
-        ArrayAdapter<Table> adapter = new TableListAdapter(TableListActivity.this, R.layout.item_table_list, getMyApp().getTables());
-        ListView list_view = this.findViewById(R.id.lv_tables);
-        list_view.setAdapter(adapter);
 
         // Listeners
 
@@ -101,23 +98,6 @@ public class TableListActivity extends BaseActivity {
                 if (hasEndedScrolling(true))  Toast.makeText(TableListActivity.this, "Refresh ", Toast.LENGTH_SHORT).show();;
             }
 
-        });
-
-        list_view.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                // Aqui podem afegir activities per a cada espai de la llista
-                Intent intent = new Intent();
-
-                intent.putExtra( "Taula", "" + getMyApp().getTables().get(position).getId());
-                intent.putExtra( "Score", getMyApp().getTables().get(position).getScore() + "" );
-                intent.putExtra( "Status", getMyApp().getTables().get(position).getStatus() );
-
-                intent.setClass( TableListActivity.this, OrderRequestActivity.class );
-                startActivity( intent );
-            }
         });
 
     }
@@ -161,20 +141,56 @@ public class TableListActivity extends BaseActivity {
         // Start the queue
         requestQueue.start();
 
-        String url = "http://192.168.1.38:5000/info/table/get";
+        String url = "http://172.20.26.155:5000/info/table/get";
 
-        Log.d("get_table","hoal");
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.d("get_table","Response is: "+ response);
+
+                        ObjectMapper objectMapper = new ObjectMapper();
+
+                        try {
+
+                            ArrayList<TableData> alTableData = objectMapper.readValue(
+                                    response,
+                                    objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, TableData.class));
+
+                            for (TableData aux :
+                                    alTableData) {
+                                lData.add(aux);
+                            }
+
+                            ArrayAdapter<TableData> adapter = new TableListAdapter(TableListActivity.this, R.layout.item_table_list, lData);
+                            ListView list_view = findViewById(R.id.lv_tables);
+                            list_view.setAdapter(adapter);
+
+                            list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+                                {
+                                    // Aqui podem afegir activities per a cada espai de la llista
+                                    Intent intent = new Intent();
+
+                                    intent.putExtra( "Taula", "" + lData.get(position).getId());
+                                    intent.putExtra( "Score", lData.get(position).getPoints() + "" );
+                                    intent.putExtra( "Status", lData.get(position).getStatus() );
+
+                                    intent.setClass( TableListActivity.this, OrderRequestActivity.class );
+                                    startActivity( intent );
+                                }
+                            });
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // Handle error
+                        Log.d("get_table", "Error: " + error.toString());
                     }
                 });
 
