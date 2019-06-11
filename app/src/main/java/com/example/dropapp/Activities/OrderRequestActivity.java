@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -12,17 +13,35 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.dropapp.Adapters.OrderRequestAdapter;
+import com.example.dropapp.ItemData;
 import com.example.dropapp.Models.Item;
 import com.example.dropapp.Models.Table;
 import com.example.dropapp.R;
+import com.example.dropapp.Utils;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class OrderRequestActivity extends BaseActivity {
 
     Table currentTable;
-    ArrayList<Item> items;
+    ArrayList<ItemData> items;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,15 +62,9 @@ public class OrderRequestActivity extends BaseActivity {
 
         // TODO: Aqui aniria el getItems
 
-        items = getMyApp().getItems();
-
-        // Adapters
-
-        OrderRequestAdapter adapter = new OrderRequestAdapter( OrderRequestActivity.this, R.layout.item_order_request, items);
-
-        ListView list_view = this.findViewById(R.id.lv_request);
-
-        list_view.setAdapter( adapter );
+        //items = getMyApp().getItems();
+        items = new ArrayList<ItemData>();
+        getPrices();
 
         // Listeners
 
@@ -141,9 +154,9 @@ public class OrderRequestActivity extends BaseActivity {
                         public void onClick(DialogInterface dialog, int which) {
 
                             //TODO Post comanda
-                            //String comandaData = parseComanda();
+                            String comandaData = parseComanda();
 
-                            //postComanda(comandaData);
+                            postComanda(comandaData);
 
                             //buidaComanda(view);
 
@@ -162,7 +175,7 @@ public class OrderRequestActivity extends BaseActivity {
 
     private boolean comandaIsEmpty() {
 
-        for (Item aux :
+        for (ItemData aux :
                 items) {
             if (aux.getAcummulatedAmount() > 0) return false;
         }
@@ -170,12 +183,121 @@ public class OrderRequestActivity extends BaseActivity {
         return true;
     }
 
+    public void postComanda(final String data) {
+
+        String routeUrl = Utils.defaultUrl + "order/create";
+
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = routeUrl;
+
+        Log.d("post_order", "URL: " + routeUrl);
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        Log.d("post_order", "Response: " + response );
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("post_order", "Error: " + error.toString());
+            }
+        }
+        ) {
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+
+                byte[] body = new byte[0];
+                try {
+                    body = data.getBytes("UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    Log.e("post_order", "Unable to gets bytes from JSON", e.fillInStackTrace());
+                }
+                return body;
+            }
+
+
+            @Override
+            public String getBodyContentType() {
+                return "application/json";
+            }
+
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                headers.put( "Content-Type", "application/json" );
+                return headers;
+            }
+        };
+
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+
+    }
+
+    public void getPrices () {
+
+        String routeUrl = Utils.defaultUrl + "order/prices/get";
+
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = routeUrl;
+
+        Log.d("get_prices", "URL: " + routeUrl);
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        ObjectMapper objectMapper = new ObjectMapper();
+
+                        try {
+
+                            ArrayList<ItemData> alItemNames = objectMapper.readValue(
+                                    response,
+                                    objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, ItemData.class));
+
+                            for (ItemData aux :
+                                    alItemNames) {
+                                items.add( aux );
+                            }
+
+                            // Adapters
+
+                            OrderRequestAdapter adapter = new OrderRequestAdapter( OrderRequestActivity.this, R.layout.item_order_request, items);
+
+                            ListView list_view = findViewById(R.id.lv_request);
+
+                            list_view.setAdapter( adapter );
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("get_prices", "Error: " + error.toString());
+            }
+        });
+
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+
+    }
+
     /*
       Retorna la posició d'un producte dins de items
    */
     private int getArrayPosition( String name )
     {
-        for ( Item item : items)
+        for ( ItemData item : items)
         {
             if ( item.getItem().equals( name ) ) return items.indexOf(item);
         }
@@ -272,18 +394,18 @@ public class OrderRequestActivity extends BaseActivity {
     /*
         Mètode que retorna tota la informació de la comanda en format Json
      */
-    /*
+
     private String parseComanda(){
 
         ObjectMapper mapper = new ObjectMapper();
 
         JsonNode rootNode = mapper.createObjectNode();
 
-        ((ObjectNode) rootNode).put( "id", currentTable.getId().toString() );
+        ((ObjectNode) rootNode).put( "id", Integer.toString(currentTable.getId()) );
         ((ObjectNode) rootNode).put( "points_spent", getPointsSpent() );
 
         JsonNode details = mapper.createArrayNode();
-        for (ItemJsonData aux :
+        for (ItemData aux :
                 items) {
             if (aux.getAcummulatedAmount() > 0) {
 
@@ -308,7 +430,7 @@ public class OrderRequestActivity extends BaseActivity {
             return "{\"data\": \"something went wrong\" }";
         }
     }
-    */
+
     /*
     Mètode que retorna els punts gastats amb descomptes drop
     */
@@ -316,7 +438,7 @@ public class OrderRequestActivity extends BaseActivity {
 
         Long pointsSpent = 0L;
 
-        for (Item aux :
+        for (ItemData aux :
                 items) {
             pointsSpent = pointsSpent + (aux.getAmountD() * aux.getPointCost());
         }

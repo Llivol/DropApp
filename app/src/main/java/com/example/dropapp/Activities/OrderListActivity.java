@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -15,12 +18,30 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.dropapp.Adapters.OrderListAdapter;
 import com.example.dropapp.Adapters.TableListAdapter;
+import com.example.dropapp.ComandaData;
 import com.example.dropapp.Listeners.OnSwipeTouchListener;
 import com.example.dropapp.Models.Order;
 import com.example.dropapp.Models.Table;
 import com.example.dropapp.R;
+import com.example.dropapp.Utils;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class OrderListActivity extends BaseActivity {
 
@@ -36,12 +57,9 @@ public class OrderListActivity extends BaseActivity {
         setCustomActionBar(true, R.string.title_activity_order_list);
 
         // TODO: Aqui aniria el getOrders
+        getComandes();
 
         // Adapters
-
-        OrderListAdapter adapter = new OrderListAdapter(OrderListActivity.this, R.layout.item_order_list, getMyApp().getOrders());
-        ListView list_view = this.findViewById(R.id.lv_orders);
-        list_view.setAdapter(adapter);
 
         // Listeners
 
@@ -75,7 +93,7 @@ public class OrderListActivity extends BaseActivity {
 
     }
 
-    public void notifyTable(View view) {
+    public void notifyTable(final View view) {
 
         new AlertDialog.Builder(this)
                 .setMessage( "Es notificarà a la taula" )
@@ -83,9 +101,10 @@ public class OrderListActivity extends BaseActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        Toast.makeText(OrderListActivity.this, "Notificar taula", Toast.LENGTH_SHORT).show();
-                        // TODO: postWarn
-                        //postWarn();
+                        int tableId = Integer.parseInt(((TextView) ((ViewGroup)view.getParent()).getChildAt(0)).getText().toString().split(" ")[1]);
+
+                        Toast.makeText(OrderListActivity.this, "Notificar taula " + tableId , Toast.LENGTH_SHORT).show();
+                        postWarn(tableId);
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -97,10 +116,10 @@ public class OrderListActivity extends BaseActivity {
                 .show();
     }
 
-    /* postWarn de la versió antiga
-
-        private void postWarn() {
+    private void postWarn(int tableId) {
         String routeUrl = Utils.defaultUrl + "warn";
+
+        final int id = tableId;
 
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -114,7 +133,7 @@ public class OrderListActivity extends BaseActivity {
                         Log.d("warn","Response is: "+ response);
 
                         Intent intent = new Intent();
-                        intent.setClass( ComandaInformationActivity.this, ComandaListActivity.class );
+                        intent.setClass( OrderListActivity.this, OrderListActivity.class );
                         startActivity( intent );
 
                         finish();
@@ -124,7 +143,7 @@ public class OrderListActivity extends BaseActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d("warn", "Error: " + error.toString());
-                        Toast.makeText(ComandaInformationActivity.this,
+                        Toast.makeText(OrderListActivity.this,
                                 "Something went wrong",
                                 Toast.LENGTH_LONG);
                     }
@@ -140,7 +159,7 @@ public class OrderListActivity extends BaseActivity {
             @Override
             public byte[] getBody() throws AuthFailureError {
 
-                String body = "{\"id\": \"" + currentTableId + "\" }";
+                String body = "{\"id\": \"" + id + "\" }";
 
                 try {
 
@@ -158,8 +177,53 @@ public class OrderListActivity extends BaseActivity {
 
     }
 
+    private void getComandes() {
+        String routeUrl = Utils.defaultUrl + "order/get/list";
 
-     */
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = routeUrl;
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("get_order","Response is: "+ response);
+                        ObjectMapper objectMapper = new ObjectMapper();
+
+                        try {
+                            List<ComandaData> orderInfo = new ArrayList<>();
+
+                            ArrayList<ComandaData> alComandaData = objectMapper.readValue(
+                                    response,
+                                    objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, ComandaData.class));
+
+                            for (ComandaData aux :
+                                    alComandaData) {
+                                orderInfo.add(aux);
+                            }
+
+                            OrderListAdapter adapter = new OrderListAdapter(OrderListActivity.this, R.layout.item_order_list, orderInfo);
+                            ListView list_view = findViewById(R.id.lv_orders);
+                            list_view.setAdapter(adapter);
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("get_table", "Error: " + error.toString());
+            }
+        });
+
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+
+    }
 
     public void expandContent(View view) {
 

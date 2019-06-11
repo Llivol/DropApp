@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.dropapp.Activities.OrderListActivity;
+import com.example.dropapp.ComandaData;
 import com.example.dropapp.Models.Item;
 import com.example.dropapp.Models.Order;
 import com.example.dropapp.R;
@@ -21,13 +22,13 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 
-public class OrderListAdapter extends ArrayAdapter<Order> {
+public class OrderListAdapter extends ArrayAdapter<ComandaData> {
 
     Context context;
     int layoutResourceId;
-    List<Order> orders = null;
+    List<ComandaData> orders = null;
 
-    public OrderListAdapter(Context context, int resource, List<Order> objects)
+    public OrderListAdapter(Context context, int resource, List<ComandaData> objects)
     {
         super(context, resource, objects);
 
@@ -68,8 +69,8 @@ public class OrderListAdapter extends ArrayAdapter<Order> {
             holder = (DataHolder)convertView.getTag();
         }
 
-        Order currentOrder = orders.get(position);
-        ItemListAdapter itemListAdapter = new ItemListAdapter(parent.getContext(), R.layout.item_order_item, orders.get(position).getItems());
+        ComandaData currentOrder = orders.get(position);
+        ItemListAdapter itemListAdapter = new ItemListAdapter(parent.getContext(), R.layout.item_order_item, orders.get(position).getDetails());
 
         holder.tvTable.setText("Taula " + currentOrder.getId());
         holder.tvItems.setText(currentOrder.itemsToString());

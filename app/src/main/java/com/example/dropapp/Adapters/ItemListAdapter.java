@@ -10,19 +10,21 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.dropapp.DetailData;
+import com.example.dropapp.ItemData;
 import com.example.dropapp.Models.Item;
 import com.example.dropapp.Models.Order;
 import com.example.dropapp.R;
 
 import java.util.List;
 
-public class ItemListAdapter extends ArrayAdapter<Item> {
+public class ItemListAdapter extends ArrayAdapter<ItemData> {
 
     Context context;
     int layoutResourceId;
-    List<Item> items = null;
+    List<ItemData> items = null;
 
-    public ItemListAdapter(Context context, int resource, List<Item> objects)
+    public ItemListAdapter(Context context, int resource, List<ItemData> objects)
     {
         super(context, resource, objects);
 
@@ -62,7 +64,7 @@ public class ItemListAdapter extends ArrayAdapter<Item> {
             holder = (DataHolder)convertView.getTag();
         }
 
-        Item currentItem = items.get(position);
+        ItemData currentItem = items.get(position);
 
         Resources res = context.getResources();
         //String text = res.getString(R.string.welcome_messages, username, mailCount);
@@ -76,7 +78,7 @@ public class ItemListAdapter extends ArrayAdapter<Item> {
         }
         else {
 
-            holder.tvItemName.setText(currentItem.getItem() + " DROP");
+            holder.tvItemName.setText(currentItem.getItem() + " desc");
             holder.tvItemPrice.setText(res.getString(R.string.format_item_price, currentItem.getDiscPrice()));
             holder.tvItemAmount.setText(res.getString(R.string.format_item_amount, Long.toString(currentItem.getAmountD())));
         }

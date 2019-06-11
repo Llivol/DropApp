@@ -10,18 +10,19 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.dropapp.ItemData;
 import com.example.dropapp.Models.Item;
 import com.example.dropapp.R;
 
 import java.util.List;
 
-public class OrderRequestAdapter extends ArrayAdapter<Item> {
+public class OrderRequestAdapter extends ArrayAdapter<ItemData> {
 
     Context context;
     int layoutResourceId;
-    List<Item> items = null;
+    List<ItemData> items = null;
 
-    public OrderRequestAdapter(Context context, int resource, List<Item> objects)
+    public OrderRequestAdapter(Context context, int resource, List<ItemData> objects)
     {
         super(context, resource, objects);
 
@@ -62,7 +63,7 @@ public class OrderRequestAdapter extends ArrayAdapter<Item> {
         {
             holder = (DataHolder)convertView.getTag();
         }
-        Item dataItem = items.get(position);
+        ItemData dataItem = items.get(position);
 
         Log.d( "table_information", dataItem.getItem() );
 

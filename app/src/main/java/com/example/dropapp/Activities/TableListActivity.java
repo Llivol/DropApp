@@ -59,20 +59,6 @@ public class TableListActivity extends BaseActivity {
         // TODO: Aqui aniria el getTables
         getTaules();
 
-
-        // Listeners
-
-        /* Això era una idea, pero al final res per falta de temps
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Això encara no fa res, chill", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
-
         findViewById(R.id.btn_forward).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,7 +127,7 @@ public class TableListActivity extends BaseActivity {
         // Start the queue
         requestQueue.start();
 
-        String url = "http://172.20.26.155:5000/info/table/get";
+        String url = Utils.defaultUrl + "info/table/get";
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
